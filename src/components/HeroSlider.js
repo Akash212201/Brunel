@@ -1,64 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import '../App.css'; // Import CSS for styling
+import React, { useRef } from "react";
+import Slider from "react-slick";
 
-const CarouselSlider = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = [
-    {
-      text: "Slide 1 Text",
-      backgroundImage: "url('/path/to/image1.jpg')"
-    },
-    {
-      text: "Slide 2 Text",
-      backgroundImage: "url('/path/to/image2.jpg')"
-    },
-    {
-      text: "Slide 3 Text",
-      backgroundImage: "url('/path/to/image3.jpg')"
-    }
-  ];
+const HeroSlider = () => {
+    const sliderRef = useRef(null);
 
-  // Function to handle click on dots
-  const handleDotClick = (index) => {
-    setCurrentSlide(index);
-  };
+    const settings = {
+        dots: true,
+        autoplay: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        
+    };
 
-  // Function to move to next slide
-  const nextSlide = () => {
-    const nextSlideIndex = (currentSlide + 1) % slides.length;
-    setCurrentSlide(nextSlideIndex);
-  };
+    const data = [
+        'Enhance fortune 50 company’s insights teams research capabilities',
+        'The cat ate the tree.',
+        'My friend jumped a book.'
+    ];
 
-  // Automatically change slide every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
-    return () => clearInterval(interval);
-  }, [currentSlide]);
+    const goToNextSlide = () => {
+        sliderRef.current.slickNext();
+    };
 
-  return (
-    <div className="carousel-slider">
-      <div className="slides-container">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className={`slide ${currentSlide === index ? 'active' : ''}`}
-            style={{ backgroundImage: slide.backgroundImage }}
-          >
-            <div className="slide-text border border-black text-black">{slide.text}</div>
-          </div>
-        ))}
-      </div>
-      <div className="dots-container">
-        {slides.map((_, index) => (
-          <div
-            key={index}
-            className={`dot ${currentSlide === index ? 'active-dot' : ''}`}
-            onClick={() => handleDotClick(index)}
-          ></div>
-        ))}
-      </div>
-    </div>
-  );
-};
+    const goToPrevSlide = () => {
+        sliderRef.current.slickPrev();
+    };
 
-export default CarouselSlider;
+    return (
+        <div className="slider-container mt-20">
+            <Slider ref={sliderRef} {...settings}>
+                {data.map((item, index) => (
+                    <div key={index} className="w-[200px]">
+                        <h3 className="text-[1.5rem]">{item}</h3>
+                    </div>
+                ))}
+            </Slider>
+            <div className="flex justify-start items-start">
+                <button onClick={goToPrevSlide}></button>
+                <button onClick={goToNextSlide}></button>
+            </div>
+        </div>
+    );
+}
+
+export default HeroSlider;
