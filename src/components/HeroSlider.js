@@ -12,7 +12,7 @@ const HeroSlider = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: false,
-        
+
     };
 
     const data = [
@@ -34,7 +34,7 @@ const HeroSlider = () => {
             <Slider ref={sliderRef} {...settings}>
                 {data.map((item, index) => (
                     <div key={index} className="w-[200px]">
-                        <h3 className="text-[1.5rem]">{item}</h3>
+                        <h3 className="text-[2.5rem]">{item}</h3>
                     </div>
                 ))}
             </Slider>

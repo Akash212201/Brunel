@@ -18,4 +18,10 @@
 body {
   margin: 0;
 }
-
+.slick-dots{
+  text-align: left !important;
+}
+.slick-active::before{
+  text-align: green !important;
+  background: green !important;
+}
